@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase";
 import { signOut } from "firebase/auth";  
+import logo from '../../assets/logo1.png'; 
+
 const Navbar = () => {
   const [user] = useAuthState(auth);  
   const [isMobile, setIsMobile] = useState(false);
@@ -30,9 +32,11 @@ const Navbar = () => {
   return (
     <nav className={`p-5 ${theme === "light" ? "bg-gray-800" : "bg-gray-900"} text-white`}>
       <div className="container mx-auto flex justify-between items-center">
-        {/* First Div: Logo */}
-        <div className="text-3xl font-bold">
-          <NavLink to="/">MyLogo</NavLink>
+        {/* First Div: Logo with Animation */}
+        <div className="text-3xl font-bold cursor-pointer hover:animate-bounce transition duration-300">
+          <NavLink to="/">
+            <img src={logo} alt="Logo" className="h-16 md:h-20" /> {/* Increased logo size */}
+          </NavLink>
         </div>
 
         {/* Second Div: Menu Items */}
