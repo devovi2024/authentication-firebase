@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'; 
-import { NavLink } from 'react-router-dom'; 
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { FaEnvelope, FaLock, FaUserPlus, FaPhone, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa'; 
+import { NavLink } from 'react-router-dom';
 import auth from '../../firebase';
 import signinImage from "../../assets/sign+up+logo+FINAL+PNG.png";
 
-const SignIn = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   
   // Firebase authentication hook
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
 
   // Error Handling UI
   if (error) {
@@ -26,9 +27,9 @@ const SignIn = () => {
     );
   }
 
-  // If user is signed in successfully
+  // If user is registered successfully
   if (user) {
-    return <div className="text-green-500 text-center py-4">Signed In User: {user.user.email}</div>;
+    return <div className="text-green-500 text-center py-4">Registered User: {user.user.email}</div>;
   }
 
   return (
@@ -36,7 +37,7 @@ const SignIn = () => {
       
       {/* Left-side Illustration */}
       <div className="hidden md:flex flex-1 justify-center items-center">
-        <img src={signinImage} alt="Sign In Illustration" className="max-w-sm" />
+        <img src={signinImage} alt="Sign Up Illustration" className="max-w-sm" />
       </div>
       
       {/* Right-side Form */}
@@ -44,7 +45,7 @@ const SignIn = () => {
         
         {/* Form Header */}
         <h2 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-          <FaSignInAlt className="text-blue-600" /> Sign In
+          <FaUserPlus className="text-blue-600" /> Sign Up
         </h2>
 
         <div className="w-full max-w-sm">
@@ -79,21 +80,55 @@ const SignIn = () => {
             </div>
           </div>
           
+          {/* Phone Field */}
+          <div className="mb-6">
+            <label className="block text-gray-600 mb-2">Phone Number</label>
+            <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 shadow-sm bg-gray-100">
+              <FaPhone className="text-gray-400" />
+              <input
+                type="tel"
+                className="flex-1 ml-2 outline-none bg-transparent text-gray-700"
+                placeholder="Enter your phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+          </div>
+          
           {/* Buttons */}
           <div className="flex gap-4">
             <button 
-              onClick={() => signInWithEmailAndPassword(email, password)}
+              onClick={() => createUserWithEmailAndPassword(email, password)}
               className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all text-lg font-semibold shadow-md hover:shadow-xl"
             >
-              Sign In
+              Sign Up
             </button>
+
+            {console.log(user)}
+
           </div>
           
-          {/* "Don't have an account?" Section */}
+          {/* Social Login */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 mb-2">Or sign up with</p>
+            <div className="flex justify-center gap-4">
+              <button className="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-all text-red-500">
+                <FaGoogle className="w-6 h-6" />
+              </button>
+              <button className="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-all text-blue-600">
+                <FaFacebook className="w-6 h-6" />
+              </button>
+              <button className="bg-white p-2 rounded-full shadow-md hover:shadow-lg transition-all text-blue-400">
+                <FaTwitter className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+          
+          {/* "Already have an account?" Section */}
           <div className="mt-4 text-center text-gray-600">
-            <p>Don't have an account? 
-              <NavLink to="/signup" className="text-blue-600 hover:underline ml-2">
-                Sign Up
+            <p>Already have an account? 
+              <NavLink to="/signin" className="text-blue-600 hover:underline ml-2">
+                Signin
               </NavLink>
             </p>
           </div>
@@ -103,4 +138,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Signup;

@@ -47,7 +47,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-6">
           {/* Show Get Started if not signed in */}
           {!user && (
-            <NavLink to="/signin" className="flex items-center text-lg hover:text-yellow-400 transition duration-300" onClick={handleSignIn}>
+            <NavLink to="/signup" className="flex items-center text-lg hover:text-yellow-400 transition duration-300" onClick={handleSignIn}>
               Get Started
               <span className="ml-2"><FaSun size={22} /></span>
             </NavLink>

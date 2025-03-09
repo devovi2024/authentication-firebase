@@ -5,7 +5,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';  
 import Blog from './pages/Blog';
-import Signin from './components/Signin/SignIn'
+import Signup from './components/Signup/Signup';
+import SignIn from './components/Signin/SignIn';
+
 function App() {
   return (
     <Router>
@@ -15,11 +17,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} /> 
           <Route path="/blog" element={<Blog />} /> 
-          <Route path='/signin' element={<Signin/>} >
-
-          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<SignIn />} />
         </Route>
-
       </Routes>
     </Router>
   );
