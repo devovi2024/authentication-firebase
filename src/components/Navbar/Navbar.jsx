@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaSun, FaMoon, FaSignOutAlt } from "react-icons/fa"; 
+import { FaBars, FaTimes, FaSignInAlt, FaSignOutAlt, FaUserPlus, FaHome, FaInfoCircle, FaBlog, FaCogs } from "react-icons/fa";  
 import { NavLink } from "react-router-dom";  
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase";
@@ -12,7 +12,6 @@ const Navbar = () => {
   const [theme, setTheme] = useState("light");
 
   const toggleMenu = () => setIsMobile(!isMobile);
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   const handleSignOut = async () => {
     try {
@@ -30,45 +29,48 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`p-5 ${theme === "light" ? "bg-gray-800" : "bg-gray-900"} text-white`}>
+    <nav className="p-5 bg-gray-800 text-white">
       <div className="container mx-auto flex justify-between items-center">
-        {/* First Div: Logo with Animation */}
+        
+        {/* Logo */}
         <div className="text-3xl font-bold cursor-pointer hover:animate-bounce transition duration-300">
           <NavLink to="/">
-            <img src={logo} alt="Logo" className="h-16 md:h-20" /> {/* Increased logo size */}
+            <img src={logo} alt="Logo" className="h-16 md:h-20" />
           </NavLink>
         </div>
 
-        {/* Second Div: Menu Items */}
-        <div className="hidden md:flex space-x-12">
-          <NavLink to="/" className="text-xl hover:text-yellow-400 transition duration-300">Home</NavLink>
-          <NavLink to="/about" className="text-xl hover:text-yellow-400 transition duration-300">About</NavLink>
-          <NavLink to="/services" className="text-xl hover:text-yellow-400 transition duration-300">Services</NavLink>
-          <NavLink to="/blog" className="text-xl hover:text-yellow-400 transition duration-300">Blog</NavLink>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-10">
+          <NavLink to="/" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaHome className="mr-2" /> Home
+          </NavLink>
+          <NavLink to="/about" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaInfoCircle className="mr-2" /> About
+          </NavLink>
+          <NavLink to="/services" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaCogs className="mr-2" /> Services
+          </NavLink>
+          <NavLink to="/blog" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaBlog className="mr-2" /> Blog
+          </NavLink>
         </div>
 
-        {/* Third Div: Get Started, Theme Mode and SignOut */}
+        {/* Auth & Mobile Menu Toggle */}
         <div className="flex items-center space-x-6">
+          
           {/* Show Get Started if not signed in */}
           {!user && (
             <NavLink to="/signup" className="flex items-center text-lg hover:text-yellow-400 transition duration-300" onClick={handleSignIn}>
-              Get Started
-              <span className="ml-2"><FaSun size={22} /></span>
+              <FaUserPlus className="mr-2" /> Get Started
             </NavLink>
           )}
 
           {/* Show Sign Out if user is signed in */}
           {user && (
             <button onClick={handleSignOut} className="flex items-center text-lg hover:text-yellow-400 transition duration-300">
-              Sign Out
-              <span className="ml-2"><FaSignOutAlt size={22} /></span>
+              <FaSignOutAlt className="mr-2" /> Sign Out
             </button>
           )}
-
-          {/* Theme Toggle Button */}
-          <button onClick={toggleTheme} className="text-xl hover:text-yellow-400 transition duration-300">
-            {theme === "light" ? <FaSun size={22} /> : <FaMoon size={22} />}
-          </button>
 
           {/* Mobile Menu Button */}
           <button onClick={toggleMenu} className="md:hidden text-xl">
@@ -80,15 +82,25 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`md:hidden ${isMobile ? "block" : "hidden"} bg-gray-700 text-white`}>
         <div className="flex flex-col items-center py-4 space-y-4">
-          <NavLink to="/" className="text-xl hover:text-yellow-400 transition duration-300">Home</NavLink>
-          <NavLink to="/about" className="text-xl hover:text-yellow-400 transition duration-300">About</NavLink>
-          <NavLink to="/services" className="text-xl hover:text-yellow-400 transition duration-300">Services</NavLink>
-          <NavLink to="/blog" className="text-xl hover:text-yellow-400 transition duration-300">Blog</NavLink>
+          <NavLink to="/" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaHome className="mr-2" /> Home
+          </NavLink>
+          <NavLink to="/about" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaInfoCircle className="mr-2" /> About
+          </NavLink>
+          <NavLink to="/services" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaCogs className="mr-2" /> Services
+          </NavLink>
+          <NavLink to="/blog" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+            <FaBlog className="mr-2" /> Blog
+          </NavLink>
           {!user ? (
-            <NavLink to="/signin" className="text-xl hover:text-yellow-400 transition duration-300">Get Started</NavLink>
+            <NavLink to="/signin" className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+              <FaSignInAlt className="mr-2" /> Get Started
+            </NavLink>
           ) : (
-            <button onClick={handleSignOut} className="text-xl hover:text-yellow-400 transition duration-300">
-              Sign Out
+            <button onClick={handleSignOut} className="text-xl flex items-center hover:text-yellow-400 transition duration-300">
+              <FaSignOutAlt className="mr-2" /> Sign Out
             </button>
           )}
         </div>
