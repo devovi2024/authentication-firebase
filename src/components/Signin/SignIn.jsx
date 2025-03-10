@@ -5,16 +5,16 @@ import { NavLink } from "react-router-dom";
 import auth from "../../firebase";
 import signinImage from "../../assets/sign+up+logo+FINAL+PNG.png";
 import GoogleSignUp from "../GoogleSignUp/GoogleSignUp";
+import FacebookSignUp from "../FacebookSignUp/FacebookSignUp";
+import GithubSignup from "../GithubSignup/GithubSignup";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Firebase authentication hook
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  // If user is signed in successfully
   if (user) {
     return (
       <div className="text-green-500 text-center py-4">
@@ -24,15 +24,15 @@ const SignIn = () => {
   }
 
   return (
-    <div className="flex h-screen bg-white p-6">
+    <div className="flex h-screen bg-gray-100 p-6">
       {/* Left-side Illustration */}
       <div className="hidden md:flex flex-1 justify-center items-center">
-        <img src={signinImage} alt="Sign In Illustration" className="max-w-sm" />
+        <img src={signinImage} alt="Sign In Illustration" className="max-w-xs" />
       </div>
 
       {/* Right-side Form */}
-      <div className="flex-1 flex flex-col justify-center items-center bg-white p-10 shadow-lg rounded-lg">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+      <div className="flex-1 flex flex-col justify-center items-center bg-white p-8 shadow-xl rounded-xl">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
           <FaSignInAlt className="text-blue-600" /> Sign In
         </h2>
 
@@ -85,9 +85,11 @@ const SignIn = () => {
             </p>
           </div>
 
-          {/* Google Sign In */}
-          <div className="flex justify-center items-center mt-4">
+          {/* Social Sign In */}
+          <div className="flex justify-center items-center mt-4 gap-4">
             <GoogleSignUp />
+            <FacebookSignUp />
+            <GithubSignup />
           </div>
 
           {/* Error Handling */}
